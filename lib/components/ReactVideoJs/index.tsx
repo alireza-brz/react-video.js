@@ -3,10 +3,99 @@ import React from "react";
 import videojs from "video.js";
 import Player from "video.js/dist/types/player";
 import "video.js/dist/video-js.css";
-export const ReactVideoJs = (props: {
-  onReady: (player: Player) => void;
-  options: any;
-}) => {
+
+type VideoType = "video/mp4" | "video/webm" | "video/ogg" | "video/x-m4v";
+
+export interface VideoJsOptions {
+  type?: VideoType;
+  src?: string | { type: VideoType; src: string }[];
+  autoplay?: boolean | "muted" | "play" | "any";
+  controls?: boolean;
+  responsive?: boolean;
+  fluid?: boolean;
+  height?: number | string;
+  width?: number | string;
+  loop?: boolean;
+  poster?: string;
+  preload?: "auto" | "metadata" | "none";
+  aspectRatio?: string | "16:9" | "4:3" | "1:1";
+  audioOnlyMode?: boolean;
+  autoSetup?: boolean;
+  breakpoints?: {
+    tiny?: number;
+    xsmall?: number;
+    small?: number;
+    medium?: number;
+    large?: number;
+    xlarge?: number;
+    huge?: number;
+  };
+  children?: [] | { [index: string]: any };
+  disablePictureInPicture?: boolean;
+  enableDocumentPictureInPicture?: boolean;
+  experimentalSvgIcons?: boolean;
+  fullscreen?: boolean;
+  options?: {
+    navigationUI: "hide" | "show";
+    [index: string]: any;
+  };
+  id?: string;
+  inactivityTimeout?: number;
+  language?: "en" | "fa" | string;
+  languages?: object;
+  liveui?: boolean;
+  liveTracker?: {
+    trackingThreshold?: number;
+    liveTolerance?: number;
+  };
+  nativeControlsForTouch?: boolean;
+  normalizeAutoplay?: boolean;
+  notSupportedMessage?: string;
+  noUITitleAttributes?: boolean;
+  playbackRates?: number[];
+  plugins?: {
+    [index: string]: any;
+  };
+  preferFullWindow?: boolean;
+  restoreEl?: boolean;
+  skipButtons?: {
+    forward?: 5 | 10 | 30;
+    backward?: 5 | 10 | 30;
+  };
+  sources?: {
+    src: string;
+    type: VideoType;
+  }[];
+  suppressNotSupportedError?: boolean;
+  techCanOverridePoster?: boolean;
+  techOrder?: string[];
+  userActions?: {
+    click?: boolean | ((event: any) => void);
+    doubleClick?: boolean | ((event: any) => void);
+    hotkeys?:
+      | boolean
+      | ((event: any) => void)
+      | {
+          fullscreenKey?: (event: any) => void;
+          muteKey?: (event: any) => void;
+          playPauseKey?: (event: any) => void;
+        };
+  };
+  "vtt.js"?: string;
+  nativeAudioTracks?: boolean;
+  nativeTextTracks?: boolean;
+  nativeVideoTracks?: boolean;
+  preloadTextTracks?: boolean;
+
+  [index: string]: any;
+}
+
+export interface ReactVideoJsProps {
+  onReady?: (player: Player) => void;
+  options: VideoJsOptions;
+}
+
+export const ReactVideoJs = (props: ReactVideoJsProps) => {
   const videoRef = React.useRef<any>(null);
   const playerRef = React.useRef<any>(null);
   const { options, onReady } = props;

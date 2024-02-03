@@ -1,8 +1,8 @@
-import { ReactVideoJs } from "../";
+import { ReactVideoJs, VideoJsOptions } from "../";
 
 function App() {
-  const videoJsOptions = {
-    autoplay: true,
+  const videoJsOptions: VideoJsOptions = {
+    autoplay: false,
     controls: true,
     responsive: true,
     fluid: true,
@@ -12,6 +12,7 @@ function App() {
         type: "video/mp4",
       },
     ],
+    autoSetup: true,
   };
 
   const handlePlayerReady = (player) => {
@@ -26,7 +27,12 @@ function App() {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        width: "500px",
+        height: "500px",
+      }}
+    >
       <ReactVideoJs options={videoJsOptions} onReady={handlePlayerReady} />
     </div>
   );
